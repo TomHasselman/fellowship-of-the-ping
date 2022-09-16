@@ -12,16 +12,17 @@ class Colors:
     Green = '\x1b[38;5;119m'
     Blue = '\x1b[38;5;122m'
     White = '\x1b[38;5;231m'
+    Reset = '\x1b[0m'
 
 try:
 
-    freq = input('How often should your connection be checked? (seconds)\n')
-    remote = input('What target should be checked for availability?\n')
+    freq = input('How ' + Colors.Blue + 'often' + Colors.Reset + ' should your connection be checked? (seconds)\n')
+    remote = input('What ' + Colors.Blue + 'target' + Colors.Reset + ' should be checked for availability?\n')
 
 
     command = ["ping", "-c", "1", "-w", freq, remote]
 
-    print("Checking " + remote + " every " + freq + " seconds...")
+    print("Checking " + Colors.Blue + remote + Colors.Reset + " every " + Colors.Blue + freq + Colors.Reset + " seconds...")
 
     with open("availability.txt", 'a', encoding = 'utf-8') as log:
         while True:
@@ -50,6 +51,7 @@ try:
                 while(result !=0):
                     result = subprocess.call(command, stdout = subprocess.DEVNULL)
                     print(Colors.Red + "Internet is still down")
-                    time.sleep(int(freq))
+
+
 except KeyboardInterrupt:
     print(Colors.White + "\rShutting down...")
